@@ -1,3 +1,3 @@
-module github.com/huantt/telegram-bot-api/v5
+module github.com/bakatz/telegram-bot-api/v5
 
-go 1.16
+go 1.23
