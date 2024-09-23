@@ -1,9 +1,9 @@
 # Golang bindings for the Telegram Bot API
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/go-telegram-bot-api/telegram-bot-api/v5.svg)](https://pkg.go.dev/github.com/go-telegram-bot-api/telegram-bot-api/v5)
-[![Test](https://github.com/go-telegram-bot-api/telegram-bot-api/actions/workflows/test.yml/badge.svg)](https://github.com/go-telegram-bot-api/telegram-bot-api/actions/workflows/test.yml)
+[![Go Reference](https://pkg.go.dev/badge/github.com/bakatz/telegram-bot-api/v5.svg)](https://pkg.go.dev/github.com/bakatz/telegram-bot-api/v5)
+[![Test](https://github.com/bakatz/telegram-bot-api/actions/workflows/test.yml/badge.svg)](https://github.com/bakatz/telegram-bot-api/actions/workflows/test.yml)
 
-All methods are fairly self-explanatory, and reading the [godoc](https://pkg.go.dev/github.com/go-telegram-bot-api/telegram-bot-api/v5) page should
+All methods are fairly self-explanatory, and reading the [godoc](https://pkg.go.dev/github.com/bakatz/telegram-bot-api/v5) page should
 explain everything. If something isn't clear, open an issue or submit
 a pull request.
 
@@ -20,7 +20,7 @@ you want to ask questions or discuss development.
 ## Example
 
 First, ensure the library is installed and up to date by running
-`go get -u github.com/go-telegram-bot-api/telegram-bot-api/v5`.
+`go get -u github.com/bakatz/telegram-bot-api/v5`.
 
 This is a very simple bot that just displays any gotten updates,
 then replies it to that chat.
@@ -31,7 +31,7 @@ package main
 import (
 	"log"
 
-	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+	tgbotapi "github.com/bakatz/telegram-bot-api/v5"
 )
 
 func main() {
@@ -72,7 +72,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/go-telegram-bot-api/telegram-bot-api/v5"
+	"github.com/bakatz/telegram-bot-api/v5"
 )
 
 func main() {
