@@ -1,4 +1,6 @@
 # Golang bindings for the Telegram Bot API
+If you use and like this library:
+[![Buy me a coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=☕&slug=ben_makes_stuff&button_colour=FFDD00&font_colour=000000&font_family=Lato&outline_colour=000000&coffee_colour=ffffff)](https://www.buymeacoffee.com/ben_makes_stuff)
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/bakatz/telegram-bot-api/v5.svg)](https://pkg.go.dev/github.com/bakatz/telegram-bot-api/v5)
 
