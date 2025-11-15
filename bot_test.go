@@ -8,7 +8,6 @@ import (
 )
 
 const (
-	TestToken               = "153667468:AAHlSHlMqSt1f_uFmVRJbm5gntu2HI4WW8I"
 	ChatID                  = 76918703
 	Channel                 = "@tgbotapitest"
 	SupergroupChatID        = -1001120141283
@@ -26,23 +25,29 @@ type testLogger struct {
 	t *testing.T
 }
 
-func (t testLogger) Println(v ...interface{}) {
+func (t testLogger) Println(v ...any) {
 	t.t.Log(v...)
 }
 
-func (t testLogger) Printf(format string, v ...interface{}) {
+func (t testLogger) Printf(format string, v ...any) {
 	t.t.Logf(format, v...)
 }
 
 func getBot(t *testing.T) (*BotAPI, error) {
-	bot, err := NewBotAPI(TestToken)
+	token := os.Getenv("TELEGRAM_BOT_TOKEN")
+	if token == "" {
+		t.Errorf("TELEGRAM_BOT_TOKEN not set")
+		t.FailNow()
+	}
+
+	bot, err := NewBotAPI(token)
 	bot.Debug = true
 
 	logger := testLogger{t}
 	SetLogger(logger)
 
 	if err != nil {
-		t.Error(err)
+		return nil, err
 	}
 
 	return bot, err
@@ -607,7 +612,7 @@ func TestSetWebhookWithoutCert(t *testing.T) {
 func TestSendWithMediaGroupPhotoVideo(t *testing.T) {
 	bot, _ := getBot(t)
 
-	cfg := NewMediaGroup(ChatID, []interface{}{
+	cfg := NewMediaGroup(ChatID, []any{
 		NewInputMediaPhoto(FileURL("https://github.com/go-telegram-bot-api/telegram-bot-api/raw/0a3a1c8716c4cd8d26a262af9f12dcbab7f3f28c/tests/image.jpg")),
 		NewInputMediaPhoto(FilePath("tests/image.jpg")),
 		NewInputMediaVideo(FilePath("tests/video.mp4")),
@@ -630,7 +635,7 @@ func TestSendWithMediaGroupPhotoVideo(t *testing.T) {
 func TestSendWithMediaGroupDocument(t *testing.T) {
 	bot, _ := getBot(t)
 
-	cfg := NewMediaGroup(ChatID, []interface{}{
+	cfg := NewMediaGroup(ChatID, []any{
 		NewInputMediaDocument(FileURL("https://i.imgur.com/unQLJIb.jpg")),
 		NewInputMediaDocument(FilePath("tests/image.jpg")),
 	})
@@ -652,7 +657,7 @@ func TestSendWithMediaGroupDocument(t *testing.T) {
 func TestSendWithMediaGroupAudio(t *testing.T) {
 	bot, _ := getBot(t)
 
-	cfg := NewMediaGroup(ChatID, []interface{}{
+	cfg := NewMediaGroup(ChatID, []any{
 		NewInputMediaAudio(FilePath("tests/audio.mp3")),
 		NewInputMediaAudio(FilePath("tests/audio.mp3")),
 	})
@@ -745,7 +750,7 @@ func ExampleNewWebhook() {
 	}
 }
 
-func ExampleWebhookHandler() {
+func ExampleHandleFunc() {
 	bot, err := NewBotAPI("MyAwesomeBotToken")
 	if err != nil {
 		panic(err)
@@ -810,7 +815,7 @@ func ExampleInlineConfig() {
 			InlineQueryID: update.InlineQuery.ID,
 			IsPersonal:    true,
 			CacheTime:     0,
-			Results:       []interface{}{article},
+			Results:       []any{article},
 		}
 
 		if _, err := bot.Request(inlineConf); err != nil {
@@ -1029,7 +1034,7 @@ func TestCommands(t *testing.T) {
 // }
 
 func TestPrepareInputMediaForParams(t *testing.T) {
-	media := []interface{}{
+	media := []any{
 		NewInputMediaPhoto(FilePath("tests/image.jpg")),
 		NewInputMediaVideo(FileID("test")),
 	}

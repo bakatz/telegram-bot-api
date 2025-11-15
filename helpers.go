@@ -176,7 +176,7 @@ func NewVoice(chatID int64, file RequestFileData) VoiceConfig {
 
 // NewMediaGroup creates a new media group. Files should be an array of
 // two to ten InputMediaPhoto or InputMediaVideo.
-func NewMediaGroup(chatID int64, files []interface{}) MediaGroupConfig {
+func NewMediaGroup(chatID int64, files []any) MediaGroupConfig {
 	return MediaGroupConfig{
 		ChatID: chatID,
 		Media:  files,

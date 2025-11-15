@@ -45,8 +45,8 @@ func (p Params) AddNonZeroFloat(key string, value float64) {
 }
 
 // AddInterface adds an interface if it is not nil and can be JSON marshalled.
-func (p Params) AddInterface(key string, value interface{}) error {
-	if value == nil || (reflect.ValueOf(value).Kind() == reflect.Ptr && reflect.ValueOf(value).IsNil()) {
+func (p Params) AddInterface(key string, value any) error {
+	if value == nil || (reflect.ValueOf(value).Kind() == reflect.Pointer && reflect.ValueOf(value).IsNil()) {
 		return nil
 	}
 
@@ -63,7 +63,7 @@ func (p Params) AddInterface(key string, value interface{}) error {
 // AddFirstValid attempts to add the first item that is not a default value.
 //
 // For example, AddFirstValid(0, "", "test") would add "test".
-func (p Params) AddFirstValid(key string, args ...interface{}) error {
+func (p Params) AddFirstValid(key string, args ...any) error {
 	for _, arg := range args {
 		switch v := arg.(type) {
 		case int:

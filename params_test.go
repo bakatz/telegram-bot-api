@@ -11,7 +11,7 @@ func assertLen(t *testing.T, params Params, l int) {
 	}
 }
 
-func assertEq(t *testing.T, a interface{}, b interface{}) {
+func assertEq(t *testing.T, a, b any) {
 	if a != b {
 		t.Fatalf("Values did not match, a: %v, b: %v\n", a, b)
 	}

@@ -268,7 +268,7 @@ type BaseChat struct {
 	ChannelUsername          string
 	ProtectContent           bool
 	ReplyToMessageID         int
-	ReplyMarkup              interface{}
+	ReplyMarkup              any
 	DisableNotification      bool
 	AllowSendingWithoutReply bool
 }
@@ -1047,7 +1047,7 @@ func (config EditMessageCaptionConfig) method() string {
 type EditMessageMediaConfig struct {
 	BaseEdit
 
-	Media interface{}
+	Media any
 }
 
 func (EditMessageMediaConfig) method() string {
@@ -1219,13 +1219,13 @@ func (config DeleteWebhookConfig) params() (Params, error) {
 
 // InlineConfig contains information on making an InlineQuery response.
 type InlineConfig struct {
-	InlineQueryID     string        `json:"inline_query_id"`
-	Results           []interface{} `json:"results"`
-	CacheTime         int           `json:"cache_time"`
-	IsPersonal        bool          `json:"is_personal"`
-	NextOffset        string        `json:"next_offset"`
-	SwitchPMText      string        `json:"switch_pm_text"`
-	SwitchPMParameter string        `json:"switch_pm_parameter"`
+	InlineQueryID     string `json:"inline_query_id"`
+	Results           []any  `json:"results"`
+	CacheTime         int    `json:"cache_time"`
+	IsPersonal        bool   `json:"is_personal"`
+	NextOffset        string `json:"next_offset"`
+	SwitchPMText      string `json:"switch_pm_text"`
+	SwitchPMParameter string `json:"switch_pm_parameter"`
 }
 
 func (config InlineConfig) method() string {
@@ -1253,7 +1253,7 @@ type AnswerWebAppQueryConfig struct {
 	// WebAppQueryID is the unique identifier for the query to be answered.
 	WebAppQueryID string `json:"web_app_query_id"`
 	// Result is an InlineQueryResult object describing the message to be sent.
-	Result interface{} `json:"result"`
+	Result any `json:"result"`
 }
 
 func (config AnswerWebAppQueryConfig) method() string {
@@ -2231,7 +2231,7 @@ type MediaGroupConfig struct {
 	ChatID          int64
 	ChannelUsername string
 
-	Media               []interface{}
+	Media               []any
 	DisableNotification bool
 	ReplyToMessageID    int
 }
@@ -2427,7 +2427,7 @@ func (config GetMyDefaultAdministratorRightsConfig) params() (Params, error) {
 // media and "attach://file-%d-thumb" for thumbnails.
 //
 // It is expected to be used in conjunction with prepareInputMediaFile.
-func prepareInputMediaParam(inputMedia interface{}, idx int) interface{} {
+func prepareInputMediaParam(inputMedia any, idx int) any {
 	switch m := inputMedia.(type) {
 	case InputMediaPhoto:
 		if m.Media.NeedsUpload() {
@@ -2478,7 +2478,7 @@ func prepareInputMediaParam(inputMedia interface{}, idx int) interface{} {
 // "file-%d" for the main file and "file-%d-thumb" for the thumbnail.
 //
 // It is expected to be used in conjunction with prepareInputMediaParam.
-func prepareInputMediaFile(inputMedia interface{}, idx int) []RequestFile {
+func prepareInputMediaFile(inputMedia any, idx int) []RequestFile {
 	files := []RequestFile{}
 
 	switch m := inputMedia.(type) {
@@ -2541,8 +2541,8 @@ func prepareInputMediaFile(inputMedia interface{}, idx int) []RequestFile {
 //
 // It is expected that files will get data from the associated function,
 // prepareInputMediaForFiles.
-func prepareInputMediaForParams(inputMedia []interface{}) []interface{} {
-	newMedia := make([]interface{}, len(inputMedia))
+func prepareInputMediaForParams(inputMedia []any) []any {
+	newMedia := make([]any, len(inputMedia))
 	copy(newMedia, inputMedia)
 
 	for idx, media := range inputMedia {
@@ -2559,7 +2559,7 @@ func prepareInputMediaForParams(inputMedia []interface{}) []interface{} {
 //
 // It is expected that params will get data from the associated function,
 // prepareInputMediaForParams.
-func prepareInputMediaForFiles(inputMedia []interface{}) []RequestFile {
+func prepareInputMediaForFiles(inputMedia []any) []RequestFile {
 	files := []RequestFile{}
 
 	for idx, media := range inputMedia {
