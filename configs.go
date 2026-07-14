@@ -2008,6 +2008,23 @@ func (config GetStickerSetConfig) params() (Params, error) {
 	return params, nil
 }
 
+// GetCustomEmojiStickersConfig allows you to get information about custom emoji stickers by their identifiers.
+type GetCustomEmojiStickersConfig struct {
+	CustomEmojiIDs []string
+}
+
+func (config GetCustomEmojiStickersConfig) method() string {
+	return "getCustomEmojiStickers"
+}
+
+func (config GetCustomEmojiStickersConfig) params() (Params, error) {
+	params := make(Params)
+
+	err := params.AddInterface("custom_emoji_ids", config.CustomEmojiIDs)
+
+	return params, err
+}
+
 // UploadStickerConfig allows you to upload a sticker for use in a set later.
 type UploadStickerConfig struct {
 	UserID     int64

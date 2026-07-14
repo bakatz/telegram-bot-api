@@ -269,6 +269,14 @@ func TestMessageEntityIsTextLink(t *testing.T) {
 	}
 }
 
+func TestMessageEntityIsCustomEmoji(t *testing.T) {
+	entity := MessageEntity{Type: "custom_emoji"}
+
+	if !entity.IsCustomEmoji() {
+		t.Fail()
+	}
+}
+
 func TestFileLink(t *testing.T) {
 	file := File{FilePath: "test/test.txt"}
 

@@ -726,6 +726,7 @@ type MessageEntity struct {
 	//  “mention” (@username),
 	//  “hashtag” (#hashtag),
 	//  “cashtag” ($USD),
+	//  "custom_emoji" (custom emoji ID),
 	//  “bot_command” (/start@jobs_bot),
 	//  “url” (https://telegram.org),
 	//  “email” (do-not-reply@telegram.org),
@@ -756,6 +757,11 @@ type MessageEntity struct {
 	//
 	// optional
 	Language string `json:"language,omitempty"`
+
+	// Custom emoji ID for “custom_emoji” only, the ID of the custom emoji
+	//
+	// optional
+	CustomEmojiID string `json:"custom_emoji_id,omitempty"`
 }
 
 // ParseURL attempts to parse a URL contained within a MessageEntity.
@@ -766,6 +772,12 @@ func (e MessageEntity) ParseURL() (*url.URL, error) {
 
 	return url.Parse(e.URL)
 }
+
+// IsCustomEmoji returns true if the type of the message entity is "custom_emoji".
+func (e MessageEntity) IsCustomEmoji() bool {
+	return e.Type == "custom_emoji"
+}
+
 
 // IsMention returns true if the type of the message entity is "mention" (@username).
 func (e MessageEntity) IsMention() bool {

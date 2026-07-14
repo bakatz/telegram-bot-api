@@ -656,6 +656,19 @@ func (bot *BotAPI) GetStickerSet(config GetStickerSetConfig) (StickerSet, error)
 	return stickers, err
 }
 
+// GetCustomEmojiStickers returns the list of custom emoji stickers by their identifiers.
+func (bot *BotAPI) GetCustomEmojiStickers(config GetCustomEmojiStickersConfig) ([]Sticker, error) {
+	resp, err := bot.Request(config)
+	if err != nil {
+		return []Sticker{}, err
+	}
+
+	var stickers []Sticker
+	err = json.Unmarshal(resp.Result, &stickers)
+
+	return stickers, err
+}
+
 // StopPoll stops a poll and returns the result.
 func (bot *BotAPI) StopPoll(config StopPollConfig) (Poll, error) {
 	resp, err := bot.Request(config)
